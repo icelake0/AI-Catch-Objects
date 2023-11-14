@@ -24,7 +24,7 @@ class FragilePackagesStore:
 
         # Score Text
         self.net_score = 0
-        self.basic_font = pygame.font.Font("freesansbold.ttf", 16)
+        self.basic_font = pygame.font.Font("freesansbold.ttf", 50)
     
     def setup_store(self):
         # General setup
@@ -33,8 +33,8 @@ class FragilePackagesStore:
         self.clock = pygame.time.Clock()
         
         # Main Window
-        self.screen_width = 1280
-        self.screen_height = 960
+        self.screen_width = 900
+        self.screen_height = 600
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption("Storage")
         
@@ -43,7 +43,6 @@ class FragilePackagesStore:
         self.package_color = (176, 145, 110)
         self.bg_color = pygame.Color("grey12")
         self.score_color = pygame.Color("gray")
-        
         
         
     def setup_package(self):
@@ -109,7 +108,9 @@ class FragilePackagesStore:
             self.move_net()
 
             # Visuals
-            self.screen.fill(self.bg_color)
+            #self.screen.fill(self.bg_color)
+            bg = pygame.image.load("package_store.jpg")
+            self.screen.blit(bg, (0, 0))
             pygame.draw.rect(self.screen, self.light_grey, self.net)
             pygame.draw.rect(self.screen, self.package_color, self.package)
 
