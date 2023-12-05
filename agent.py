@@ -17,7 +17,7 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # pops left when memory is full
-        self.model = Linear_QNet(4, 256, 3)
+        self.model = Linear_QNet(6, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
         
 
@@ -80,23 +80,25 @@ def train():
          # remember
         agent.remember(state_old, final_move, reward, state_new, done)
         
+        print('Reword', reward)
+        
         if done:
             # train long memory, plot result
             store.setup_store()
             agent.n_games += 1
             agent.train_long_memory()
             
-        if score > record:
-                record = score
-                agent.model.save()
-        
-        print('Game', agent.n_games, 'Score', score, 'Record:', record)
-        #plot model progress
-        plot_scores.append(score)
-        total_score += score
-        mean_score = total_score / agent.n_games
-        plot_mean_scores.append(mean_score)
-        plot(plot_scores, plot_mean_scores)
+            if score > record:
+                    record = score
+                    agent.model.save()
+            
+            print('Game', agent.n_games, 'Score', score, 'Record:', record, 'Done :', done)
+            #plot model progress
+            plot_scores.append(score)
+            total_score += score
+            mean_score = total_score / agent.n_games
+            plot_mean_scores.append(mean_score)
+            plot(plot_scores, plot_mean_scores)
             
 
 
