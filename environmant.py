@@ -3,11 +3,12 @@ import numpy as np
 
 
 class FragilePackagesStore:
-    def __init__(self):
+    def __init__(self, negative_reward_value):
         # General setup
         pygame.mixer.pre_init(44100, -16, 1, 1024)
         pygame.init()
         self.clock = pygame.time.Clock()
+        self.negative_reward_value = negative_reward_value
         # Main Window
         self.screen_width = 900
         self.screen_height = 600
@@ -60,7 +61,7 @@ class FragilePackagesStore:
         if self.package.bottom >= self.screen_height:
             self.score_time = True
             self.net_failed = True
-            self.reward = -50
+            self.reward = self.negative_reward_value
             self.score_color = pygame.Color("red")
             self.package_speed_y *= -1
 
@@ -142,3 +143,6 @@ class FragilePackagesStore:
             self.net_speed == 0,
             self.net_speed > 0
         ]
+    
+    def exit(self):
+        pygame.quit()
