@@ -115,7 +115,7 @@ class FragilePackagesStore:
 
         # Visuals
         #self.screen.fill(self.bg_color)
-        bg = pygame.image.load("package_store.jpg")
+        bg = pygame.image.load("./imgs/package_store.jpg")
         self.screen.blit(bg, (0, 0))
         pygame.draw.rect(self.screen, self.light_grey, self.net)
         pygame.draw.rect(self.screen, self.package_color, self.package)

@@ -5,4 +5,4 @@ if __name__ == '__main__':
     train_negative_reward_values = [-10, -20, -30, -40, -50]
     for train_gamma_value in train_gamma_values:
         for train_negative_reward_value in train_negative_reward_values:
-            Trainer.train(train_gamma_value, train_negative_reward_value, 60 * 60)
+            Trainer.train(train_gamma_value, train_negative_reward_value, 60 * 60, "Training ")

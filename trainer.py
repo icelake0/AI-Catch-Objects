@@ -8,7 +8,7 @@ BATCH_SIZE = 1000
 LR = 0.001
     
 class Trainer:  
-    def train(train_gamma_value, train_negative_reward_value, training_time = 60 * 60):
+    def train(train_gamma_value, train_negative_reward_value, training_time, plot_title_prifix = ""):
         start_time = datetime.now().strftime("%H:%M:%S")
         start_time = datetime.strptime(start_time, "%H:%M:%S")
         plot_scores = []
@@ -54,8 +54,10 @@ class Trainer:
                 total_score += score
                 mean_score = total_score / agent.n_episodes
                 plot_mean_scores.append(mean_score)
-                plot_title = "Training Gamma: {train_gamma_value} Negative Reward: {train_negative_reward_value}".format(
-                    train_gamma_value = train_gamma_value, train_negative_reward_value = train_negative_reward_value
+                plot_title = "{plot_title_prifix}Gamma: {train_gamma_value} Negative Reward: {train_negative_reward_value}".format(
+                    plot_title_prifix = plot_title_prifix,
+                    train_gamma_value = train_gamma_value,
+                    train_negative_reward_value = train_negative_reward_value
                     )
                 plot(plot_scores, plot_mean_scores, plot_title)
                 if (current_time - start_time).total_seconds() >= training_time :
