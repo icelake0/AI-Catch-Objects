@@ -9,8 +9,8 @@ def plot(scores, mean_scores, plot_title, save = False):
     plt.clf()
     plt.title(plot_title)
     plt.xlabel('Number of Episodes')
-    plt.ylabel('Score')
-    plt.plot(scores)
+    plt.ylabel('Average Score')
+    # plt.plot(scores)
     plt.plot(mean_scores)
     plt.ylim(ymin=0)
     plt.text(len(scores)-1, scores[-1], str(scores[-1]))
@@ -20,4 +20,4 @@ def plot(scores, mean_scores, plot_title, save = False):
     if save :
         plot_file_name = plot_title
         plot_file_name.replace(" ", "-")
-        plt.savefig("results"+plot_file_name+".png") 
+        plt.savefig("results/Train-"+plot_file_name+".png") 

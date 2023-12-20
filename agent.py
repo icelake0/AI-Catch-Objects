@@ -60,7 +60,7 @@ class Agent:
 def train(train_gamma_values, train_negative_reward_value):
     start_time = datetime.now().strftime("%H:%M:%S")
     start_time = datetime.strptime(start_time, "%H:%M:%S")
-    training_time = 20 #train for 60 mins 
+    training_time = 60 * 60 #train for 60 mins 
     plot_scores = []
     plot_mean_scores = []
     total_score = 0
@@ -96,7 +96,9 @@ def train(train_gamma_values, train_negative_reward_value):
                     record = score
                     agent.model.save()
             
-            print('Episode', agent.n_episodes, 'Score', score, 'Record:', record, 'Done :', done)
+            current_time = datetime.now().strftime("%H:%M:%S")
+            current_time = datetime.strptime(current_time, "%H:%M:%S")
+            print('Episode', agent.n_episodes, 'Time', (current_time - start_time).total_seconds(), 'Score', score, 'Record:', record, 'Done :', done)
             #plot model progress
             plot_scores.append(score)
             total_score += score
@@ -106,8 +108,6 @@ def train(train_gamma_values, train_negative_reward_value):
                 train_gamma_value = train_gamma_value, train_negative_reward_value = train_negative_reward_value
                 )
             plot(plot_scores, plot_mean_scores, plot_title)
-            current_time = datetime.now().strftime("%H:%M:%S")
-            current_time = datetime.strptime(current_time, "%H:%M:%S")
             if (current_time - start_time).total_seconds() >= training_time :
                 print("------Done training for ", training_time/60, "min(s)------")
                 plot(plot_scores, plot_mean_scores, plot_title, True)
@@ -117,8 +117,8 @@ def train(train_gamma_values, train_negative_reward_value):
 
 
 if __name__ == '__main__':
-    train_gamma_values = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1]
-    train_negative_reward_values = [-10, -20, -30, -40, -50]
+    train_gamma_values = [0.7]
+    train_negative_reward_values = [-50]
     for train_gamma_value in train_gamma_values:
         for train_negative_reward_value in train_negative_reward_values:
             train(train_gamma_value, train_negative_reward_value)
