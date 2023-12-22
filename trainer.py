@@ -15,7 +15,7 @@ class Trainer:
         plot_mean_scores = []
         total_score = 0
         record = 0
-        agent = Agent(train_gamma_value)
+        agent = Agent(gamma_value = train_gamma_value)
         store = FragilePackagesStore(train_negative_reward_value)
         while True:
             # get old state

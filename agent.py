@@ -2,7 +2,6 @@ import torch
 import random
 import numpy as np
 from collections import deque
-from environmant import FragilePackagesStore
 from model import Linear_QNet, QTrainer
 from support import plot
 from datetime import datetime
@@ -13,16 +12,19 @@ LR = 0.001
 
 class Agent:
     
-    def __init__(self, gamma_value):
+    def __init__(self, gamma_value = None, model_patch = None):
         self.n_episodes = 1
         self.epsilon = 0 # randomness
         self.gamma = gamma_value # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # pops left when memory is full
         self.model = Linear_QNet(6, 256, 3)
-        self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
-        
-
+        if model_patch != None :
+            self.model.load_state_dict(torch.load(model_patch))
+            self.model.eval()
+        else :
+            self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
     
+        
     def get_state(self, store):
         return np.array(store.get_state(), dtype=int)
     
@@ -41,11 +43,11 @@ class Agent:
     def train_short_memory(self, state, action, reward, next_state, done):
         self.trainer.train_step(state, action, reward, next_state, done)
     
-    def get_action(self, state):
+    def get_action(self, state, allow_explore = True):
         # random moves: tradeoff exploration / exploitation
         self.epsilon = 80 - self.n_episodes
         final_move = [0,0,0]
-        if random.randint(0, 200) < self.epsilon:
+        if allow_explore and random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
             final_move[move] = 1
         else:
