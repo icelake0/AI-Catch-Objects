@@ -16,7 +16,7 @@ class Tester:
         store = FragilePackagesStore(negative_reward_value)
         missed = 0
         catch = 0
-        accuracey_score = 100
+        accuracey_score = 0
         while True:
             # get old state
             state_old = agent.get_state(store)
@@ -48,7 +48,7 @@ class Tester:
                     negative_reward_value = negative_reward_value,
                     catch = catch,
                     missed = missed,
-                    n_episodes = agent.n_episodes,
+                    n_episodes = agent.n_episodes - 1,
                     n_packages = catch + missed
                     )
                 plot_test_results(plot_accuracey_scores, plot_title)
