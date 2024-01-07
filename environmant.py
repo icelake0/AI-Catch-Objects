@@ -19,7 +19,7 @@ class FragilePackagesStore:
         self.package_color = (176, 145, 110)
         self.bg_color = pygame.Color("grey12")
         self.score_color = pygame.Color("gray")
-         # Packages that falls randomly
+        # Packages that falls randomly
         self.package = pygame.Rect(
             self.screen_width / 2 - 15, self.screen_height / 2 - 15, 30, 30
         )
@@ -73,7 +73,6 @@ class FragilePackagesStore:
             self.package_speed_y *= -1
 
     def move_net(self, action):
-        
         if np.array_equal(action, [1, 0, 0]):
             self.net_speed = -30
         elif np.array_equal(action, [0, 1, 0]):
@@ -94,15 +93,6 @@ class FragilePackagesStore:
         self.package_speed_y = 7
         self.score_color = pygame.Color("gray")
         self.score_time = False
-        # current_time = pygame.time.get_ticks()
-
-        # if current_time - self.score_time < 700:
-        #     self.package_speed_y, self.package_speed_x = 0, 0
-        # else:
-        #     self.package_speed_x = 7 * random.choice((1, -1))
-        #     self.package_speed_y = 7
-        #     self.score_color = pygame.Color("gray")
-        #     self.score_time = None
 
     def monitor_store(self, action):
         for event in pygame.event.get():
@@ -114,7 +104,6 @@ class FragilePackagesStore:
         self.move_net(action)
 
         # Visuals
-        #self.screen.fill(self.bg_color)
         bg = pygame.image.load("./imgs/package_store.jpg")
         self.screen.blit(bg, (0, 0))
         pygame.draw.rect(self.screen, self.light_grey, self.net)
